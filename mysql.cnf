@@ -1,0 +1,18 @@
+[mysqld]
+# Security
+skip_symbolic_links=ON
+local_infile=0
+secure_file_priv=/dev/null
+skip_name_resolve=ON
+
+# Performance & Security
+max_connections=100
+wait_timeout=300
+interactive_timeout=300
+
+# Logging
+log_error=/var/log/mysql/error.log
+slow_query_log=1
+slow_query_log_file=/var/log/mysql/slow.log
+long_query_time=2
+log_queries_not_using_indexes=1

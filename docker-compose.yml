@@ -1,0 +1,74 @@
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: flights-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html:ro  # Read-only mount
+      - ./nginx/logs:/var/log/nginx
+    depends_on:
+      - php
+    networks:
+      - flights-network
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/cache/nginx
+    restart: unless-stopped
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    container_name: flights-php
+    volumes:
+      - ./:/var/www/html:ro
+      - ./php/tmp:/tmp
+    depends_on:
+      - db
+    networks:
+      - flights-network
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    container_name: flights-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: flights
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: ${DB_APP_PASSWORD}
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --skip-name-resolve
+      - --local-infile=0
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./dump.sql:/docker-entrypoint-initdb.d/01-dump.sql:ro
+      - ./mysql-init.sql:/docker-entrypoint-initdb.d/02-security.sql:ro
+      - ./mysql.cnf:/etc/mysql/conf.d/custom.cnf:ro
+    networks:
+      - flights-network
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+
+networks:
+  flights-network:
+    driver: bridge
+    internal: false
+
+volumes:
+  db_data:
+    driver: local
