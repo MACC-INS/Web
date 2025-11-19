@@ -1,18 +1,39 @@
 [mysqld]
-# Security
-skip_symbolic_links=ON
-local_infile=0
-secure_file_priv=/dev/null
-skip_name_resolve=ON
+# Security settings
+secure-file-priv = /tmp
+local-infile = 0
+symbolic-links = 0
+skip-symbolic-links
 
-# Performance & Security
-max_connections=100
-wait_timeout=300
-interactive_timeout=300
+# Network security
+bind-address = 0.0.0.0
+# mysqlx_bind_address = 0.0.0.0  # Disable X Plugin if not needed
+
+# Authentication
+default_authentication_plugin = mysql_native_password
 
 # Logging
-log_error=/var/log/mysql/error.log
-slow_query_log=1
-slow_query_log_file=/var/log/mysql/slow.log
-long_query_time=2
-log_queries_not_using_indexes=1
+log_error = /var/log/mysql/error.log
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/slow.log
+long_query_time = 2
+log_queries_not_using_indexes = 1
+
+# Performance and security
+max_connections = 100
+max_connect_errors = 10
+key_buffer_size = 16M
+max_allowed_packet = 16M
+thread_stack = 192K
+thread_cache_size = 8
+
+# InnoDB settings
+innodb_buffer_pool_size = 64M
+innodb_log_file_size = 32M
+innodb_lock_wait_timeout = 50
+
+[mysql]
+no-auto-rehash
+
+[client]
+default-character-set = utf8mb4
