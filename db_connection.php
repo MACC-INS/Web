@@ -3,9 +3,9 @@
 function OpenCon()
 {
     $dbhost = "db";
-    $dbuser = "app_user";  // Use limited privilege user
-    $dbpass = "StrongPassword123!";
-    $dbname = "flights";
+    $dbuser = getenv('MYSQL_APP_USER'); 
+    $dbpass = getenv('MYSQL_APP_PASSWORD'); 
+    $dbname = getenv('MYSQL_DATABASE');
     
     // Check if mysqli extension is loaded
     if (!extension_loaded('mysqli')) {
