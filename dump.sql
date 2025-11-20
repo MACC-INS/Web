@@ -1,7 +1,7 @@
 
 -- Create application-specific user with limited privileges
-CREATE USER IF NOT EXISTS '${DB_APP_USER}'@'%' IDENTIFIED BY '${DB_APP_PASSWORD}';
-GRANT SELECT, INSERT, UPDATE, DELETE ON ${DB_NAME}.* TO '${DB_APP_USER}'@'%';
+CREATE USER IF NOT EXISTS '${MYSQL_APP_USER}'@'%' IDENTIFIED BY '${MYSQL_APP_PASSWORD}';
+GRANT SELECT, INSERT, UPDATE, DELETE ON ${DB_NAME}.* TO '${MYSQL_APP_USER}'@'%';
 
 -- Remove anonymous users
 DELETE FROM mysql.user WHERE User='';
