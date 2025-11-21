@@ -42,7 +42,7 @@ services:
     command: 
       - --default-authentication-plugin=mysql_native_password
     volumes:
-      - ../db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
       - ./dump.sql:/docker-entrypoint-initdb.d/01-dump.sql
       - ./mysql-init.sql:/docker-entrypoint-initdb.d/02-security.sql
       - ./mysql.cnf:/etc/mysql/conf.d/custom.cnf:ro
