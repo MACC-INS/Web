@@ -42,24 +42,3 @@ USER app
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD php -r "if (mysqli_connect('db', 'app_user', 'StrongPassword123!', 'flights', 3306)) { exit(0); } exit(1);"
 
-# FROM php:8.1-fpm
-
-# # Install system dependencies
-# RUN apt-get update && apt-get install -y \
-#     libpng-dev \
-#     libonig-dev \
-#     libxml2-dev \
-#     libzip-dev \
-#     zip \
-#     unzip \
-#     git \
-#     curl
-
-# # Install PHP extensions
-# RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring exif pcntl bcmath gd zip
-
-# # Install Composer
-# COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# # Set working directory
-# WORKDIR /var/www/html

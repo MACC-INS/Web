@@ -1,0 +1,10 @@
+FROM mysql:8.0
+
+# Copy initialization script
+COPY init-mysql.sh /init-mysql.sh
+
+# Ensure script is executable
+RUN chmod +x /init-mysql.sh
+
+# Use our script as entrypoint (it will call mysql's entrypoint)
+ENTRYPOINT ["/init-mysql.sh"]

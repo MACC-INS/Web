@@ -1,20 +1,4 @@
 
--- Create application-specific user with limited privileges
-CREATE USER IF NOT EXISTS '${MYSQL_APP_USER}'@'%' IDENTIFIED BY '${MYSQL_APP_PASSWORD}';
-GRANT SELECT, INSERT, UPDATE, DELETE ON ${DB_NAME}.* TO '${MYSQL_APP_USER}'@'%';
-
--- Remove anonymous users
-DELETE FROM mysql.user WHERE User='';
-
--- Remove remote root access (keep localhost only)
-DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-
--- Remove test database
-DROP DATABASE IF EXISTS test;
-DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
-
--- Apply changes
-FLUSH PRIVILEGES;
 -- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
 --
 -- Host: localhost    Database: flights
@@ -421,6 +405,23 @@ LOCK TABLES `TICKET3` WRITE;
 /*!40000 ALTER TABLE `TICKET3` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+-- Create application-specific user with limited privileges
+CREATE USER IF NOT EXISTS '${MYSQL_APP_USER}'@'%' IDENTIFIED BY '${MYSQL_APP_PASSWORD}';
+GRANT SELECT, INSERT, UPDATE, DELETE ON flights.* TO '${MYSQL_APP_USER}'@'%';
+
+-- Remove anonymous users
+DELETE FROM mysql.user WHERE User='';
+
+-- Remove remote root access (keep localhost only)
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+
+-- Remove test database
+DROP DATABASE IF EXISTS test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+
+-- Apply changes
+FLUSH PRIVILEGES;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

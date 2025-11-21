@@ -7,7 +7,7 @@ skip-symbolic-links
 
 # Network security
 bind-address = 0.0.0.0
-# mysqlx_bind_address = 0.0.0.0  # Disable X Plugin if not needed
+
 
 # Authentication
 default_authentication_plugin = mysql_native_password
