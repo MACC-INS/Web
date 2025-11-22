@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile.nginx
     container_name: flights-nginx
+    restart: always
     ports:
       - "80:80"
     volumes:
@@ -22,6 +23,7 @@ services:
       context: .
       dockerfile: Dockerfile.php
     container_name: flights-php
+    restart: always
     environment:
       - MYSQL_APP_USER=${MYSQL_APP_USER}
       - MYSQL_APP_PASSWORD=${MYSQL_APP_PASSWORD}
