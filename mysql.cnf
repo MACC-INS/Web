@@ -7,7 +7,7 @@ skip-symbolic-links
 
 
 # Network security
-bind-address = 0.0.0.0
+bind-address = php
 require_secure_transport=ON
 
 # Authentication
