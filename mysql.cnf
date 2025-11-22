@@ -4,7 +4,8 @@ secure-file-priv = /tmp
 local-infile = 0
 symbolic-links = 0
 skip-symbolic-links
-
+pid-file=/var/run/mysqld/mysqld.pid
+socket=/var/run/mysqld/mysqld.sock
 
 # Network security
 bind-address = php
