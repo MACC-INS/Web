@@ -4,16 +4,13 @@ secure-file-priv = /tmp
 local-infile = 0
 symbolic-links = 0
 skip-symbolic-links
-pid-file=/var/run/mysqld/mysqld.pid
-socket=/var/run/mysqld/mysqld.sock
 
 # Network security
-bind-address = php
-require_secure_transport=ON
+bind-address = 0.0.0.0
+
 
 # Authentication
-default_authentication_plugin = caching_sha2_password
-default_password_lifetime=90
+default_authentication_plugin = mysql_native_password
 
 # Logging
 log_error = /var/log/mysql/error.log
@@ -21,10 +18,9 @@ slow_query_log = 1
 slow_query_log_file = /var/log/mysql/slow.log
 long_query_time = 2
 log_queries_not_using_indexes = 1
-log_bin=/var/log/mysql/mysql-bin.log
 
 # Performance and security
-max_connections = 20
+max_connections = 100
 max_connect_errors = 10
 key_buffer_size = 16M
 max_allowed_packet = 16M
