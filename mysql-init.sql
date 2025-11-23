@@ -1,7 +1,7 @@
 -- init.sql.template
 -- Create application-specific user with limited privileges
-CREATE USER IF NOT EXISTS 'app_user'@'%' IDENTIFIED BY 'StrongPassword123!';
-GRANT SELECT, INSERT, UPDATE, DELETE ON flights.* TO 'app_user'@'%';
+CREATE USER IF NOT EXISTS '${MYSQL_APP_USER}'@'%' IDENTIFIED BY '${MYSQL_APP_PASSWORD}';
+GRANT SELECT, INSERT, UPDATE, DELETE ON flights.* TO '${MYSQL_APP_USER}'@'%';
 
 -- Remove anonymous users
 DELETE FROM mysql.user WHERE User='';
