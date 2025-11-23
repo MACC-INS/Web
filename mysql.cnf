@@ -8,6 +8,7 @@ skip-symbolic-links
 # Network security
 bind-address = 0.0.0.0
 
+
 # Authentication
 default_authentication_plugin = caching_sha2_password
 default_password_lifetime=90

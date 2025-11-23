@@ -7,7 +7,7 @@ $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https"
 function generateTableFromResult($result) {
    $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
    $html = '<table class="table table-striped">';
-   
+
    // Add table headers
    $html .= '<thead><tr>';
    $html .= '<th>Flight Code</th>';
@@ -20,7 +20,7 @@ function generateTableFromResult($result) {
    $html .= '<th>Flight Type</th>';
    $html .= '<th>Airline ID</th>';
    $html .= '</tr></thead><tbody>';
-   
+
    while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         $html .= "<tr>";
         $html .= "<td><a href='".$actual_link."/index.php?flight=".$row['FLIGHT_CODE']."'>".$row['FLIGHT_CODE']."</a></td>";
@@ -50,13 +50,13 @@ function generateTableFromResult($result) {
 </video>
 
 <div class="content">
-<?php 
+<?php
 
     // In your index.php, replace the vulnerable code:
 if(!isset($_GET['flight']))
 {
     $query = "SELECT * FROM FLIGHT LIMIT 10";
-} else { 
+} else {
     $flightid = $_GET['flight'];
     // Use prepared statements to prevent SQL injection
     $stmt = $conn->prepare("SELECT * FROM FLIGHT WHERE FLIGHT_CODE = ?");
@@ -69,7 +69,7 @@ if(!isset($_GET['flight']))
 $result = mysqli_query($conn,$query) or die(mysqli_error());
 
 
-echo generateTableFromResult($result); 
+echo generateTableFromResult($result);
 
 ?>
 

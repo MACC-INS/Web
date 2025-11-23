@@ -41,4 +41,3 @@ USER app
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD php -r "if (mysqli_connect('db', 'app_user', 'StrongPassword123!', 'flights', 3306)) { exit(0); } exit(1);"
-
