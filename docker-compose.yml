@@ -4,11 +4,11 @@ services:
       context: .
       dockerfile: Dockerfile.nginx
     container_name: flights-nginx
-    restart: always
     ports:
       - "80:80"
+      - "443:443"  
     volumes:
-      - ./:/var/www/html
+      - ./www:/var/www/html
     depends_on:
       - php
     networks:
@@ -23,13 +23,12 @@ services:
       context: .
       dockerfile: Dockerfile.php
     container_name: flights-php
-    restart: always
     environment:
       - MYSQL_APP_USER=${MYSQL_APP_USER}
       - MYSQL_APP_PASSWORD=${MYSQL_APP_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
     volumes:
-      - ./:/var/www/html
+      - ./www:/var/www/html
     depends_on:
       - db
     networks:
@@ -41,7 +40,7 @@ services:
       dockerfile: Dockerfile.mysql
     container_name: flights-db
     restart: always
-    command:
+    command: 
       - --default-authentication-plugin=caching_sha2_password
     volumes:
       - db_data:/var/lib/mysql
